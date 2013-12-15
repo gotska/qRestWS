@@ -1,0 +1,30 @@
+@(name: String, queryForm: Form[SqlQuery])
+
+@import helper._
+
+@main("Welcome to Play") {
+
+@helper.form(action = routes.SqlQueryContr.save(name)) {
+        
+        <fieldset>
+            <legend></legend>
+            
+         @inputText(
+                queryForm("cName"), 'class -> "form-control",
+                '_label -> Messages("common.name")
+            )     
+            
+			@inputText(
+                queryForm("cQuery"), 'class -> "form-control",
+                '_label -> Messages("common.name")
+            )            
+        </fieldset> 
+            
+        <div class="actions">
+            <input type="submit" value="@Messages("common.save")" class="btn primary"> 
+            <a href="/" class="btn">cancel</a> 
+        </div>
+        
+    }
+  
+}
