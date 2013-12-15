@@ -2,15 +2,36 @@
 
 @main("Welcome to Play") {
 
-<a href="@routes.SqlQueryContr.newQuery">Add</a>
-
-    @if(!list.isEmpty){
-      @list.get.map { l =>
-    	<br/>
-    	<a href="/jsonN/@l.name">@l.name</a>
-    	<a href="/jsonD/@l.name">@l.name</a>
-    	@l.query
-      }
-    }
-
+<div class="container">
+	<div class="row">
+		 <div class="col-md-9">
+		<a  class="btn btn-success" href="@routes.SqlQueryContr.newQuery">Add</a>
+		 @if(!list.isEmpty){
+		<table class="table table-striped">
+				<tbody>
+		   
+		      @list.get.map { l =>
+		    	<tr>
+		    	<td>@l.name</td>
+		    	<td>@l.query</td>
+		    	<td><a href="/jsonN/@l.name">/jsonN/@l.name</a></td>
+		    	<td><a href="/jsonD/@l.name"/>/jsonD/@l.name</a></td>
+		    	
+		    	</tr>
+		      }
+		      </tbody>
+		  </table>    
+		    }
+		    </div>
+		     <div class="col-md-3">
+	<p class="text-info">
+	{d} - it is dynamic parameter <br/>
+	Example:<br/>
+	category_getById({a}) - url name<br/>
+	select * from category where category_id={a} - query<br/>
+	</p>	     
+		     </div>
+	</div>
+	
+</div>
 }

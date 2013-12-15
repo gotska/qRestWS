@@ -3,7 +3,8 @@
 @import helper._
 
 @main("Welcome to Play") {
-
+<div class="container">
+	<div class="row">
 @helper.form(action = routes.SqlQueryContr.save(name)) {
         
         <fieldset>
@@ -26,5 +27,7 @@
         </div>
         
     }
+    </div>
+</div>
   
 }

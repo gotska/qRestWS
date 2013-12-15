@@ -31,6 +31,13 @@ object SqlQuery{
     }
   }
  
+  def findByNameWithParam(name: String): String = {
+    DB.withConnection("h2") { implicit connection =>
+      SQL("select query from sql_query where SUBSTR(name,0, POSITION('(', name)-1) = {name}").on(
+        'name -> name
+      ).as(scalar[String].single)
+    }
+  }
   def findAll: Seq[SqlQuery] = {
     DB.withConnection("h2") { implicit connection =>
       SQL("select * from sql_query").as(SqlQuery.simple.*)
