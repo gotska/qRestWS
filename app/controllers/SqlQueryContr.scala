@@ -23,17 +23,11 @@ object SqlQueryContr extends Controller {
     )(SqlQuery.apply)(SqlQuery.unapply)
   )
   
-  /*def editCategory(catId: Long) = { implicit request =>
-    val mapCat = Category.findAll.map(t =>t.id.toString -> t.name)
-    Category.findById(catId).map { cat =>
-      Ok(views.html.admin.category(catId,categoryForm.fill(cat), mapCat))
-    }.getOrElse(NotFound) 
-  }*/ 
- 
   def newQuery = Action { implicit request =>
     Ok(views.html.query("", queryForm))
      
   }
+ 
   /**
    * Handle the 'order form' submission.
    */
@@ -47,12 +41,6 @@ object SqlQueryContr extends Controller {
       }
     )    
   }
-  
-  /*def delCategory(catId: String) = Action { implicit request =>
-    SqlQuery.delete(catId)
-      Ok(views.html.admin.categories(Category.findAll()))
-     
-  }*/
   
 }
 
