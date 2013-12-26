@@ -1,16 +1,17 @@
 package models
 
 import play.api._
+import play.api.db._
 import play.api.mvc._
-import scala.slick.driver.PostgresDriver.simple._
 import scala.slick.session.{Database, Session}
 import scala.slick.jdbc.{GetResult, StaticQuery => Q}
 import Database.threadLocalSession
 import Q.interpolation
+import play.api.Play.current
 
  object Table{
   
-  lazy val db2 = Database.forURL("jdbc:postgresql://192.168.10.101:5432/ishop", "play", "play", null, "org.postgresql.Driver") 
+  lazy val db2 = Database.forDataSource(DB.getDataSource("default"))
    
   implicit val resultAsStringMap = GetResult[Map[String,String]] ( prs => 
       (1 to prs.numColumns).map(_ => 
