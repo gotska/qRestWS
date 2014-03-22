@@ -16,7 +16,8 @@ object Application extends Controller {
    Ok(json)
   }
 
-  def jsonD(name: String) = Action {
+  def jsonD(name: String) = Action { request=>
+   
    val query = Parser.getSqlQuery(name) 
    val result = Table.sqlQueryOnlyDate(query)
    val json = Json.toJson(result)
@@ -28,5 +29,13 @@ object Application extends Controller {
     Ok(views.html.index(Option(SqlQuery.findAll)))
   }
 
+   def get(name:String) = Action { request =>
+    val map = request.queryString.map { case (k,v) => k -> v.mkString } 
+    
+    val result = Table.sqlQueryWithName(query)
+    val json = Json.toJson(result)
+   
+    Ok(json)
+  }
     
 }

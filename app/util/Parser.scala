@@ -1,54 +1,50 @@
 package util
 
 import models._
+import akka.dispatch.Foreach
 
 object Parser {
 
+  val name = "name" // param for finding query
    // prepare sql query for select
-  def getSqlQuery(name: String): String = {
-    if (name.contains('(')) {
-      val queryName = parseName(name)
-      val str = SqlQuery.findByNameWithParam(queryName)
-      createSqlQueryWithParam(str, name)
-    } else
-      SqlQuery.findByName(name)
+  def getSqlQuery(params: Map[String,String]): String = {
+      val queryName = parseName(params)
+      val str = SqlQuery.findByName(queryName)
+   
+      createSqlQueryWithParam(str, params)
+   
   }
   
    // get name 
-  def parseName(name: String):String = {
-    name.subSequence(0, name.indexOf('(')).toString()
+  def parseName(params: Map[String,String]):String = {
+    params.get(name).get
    }
   
+  
   // create sql query from string
-  def createSqlQueryWithParam(str: String,fn: String):String = {
-   val strWithOutBrackets = getStringParamBetweenBrackets(fn)
-   val strSeq = stringToStringList(strWithOutBrackets).seq
-  
-   addParam(str,strSeq)
+  def createSqlQueryWithParam(str: String,params: Map[String,String]):String = {
    
-  }          
-  
-  def getStringParamBetweenBrackets(str: String):String = {
-    str.subSequence(str.indexOf('(')+1, str.indexOf(')')).toString()
-  }                                              
-  
-  def stringToStringList (str: String): Seq[String] ={
-	str.split(',')
-  }                                              
-  
-  
-  def addParam(str: String, param:Seq[String]): String = {
-    if(!param.tail.isEmpty){
-     addParam(paramReplace(str,param.head),param.tail)
-    }
-    else{
-	   paramReplace(str,param.head)
-    }
-  }                                              
+	addParam(str,params)
  
-  def paramReplace (str:String, prm: String): String ={
-		val str1 = str.subSequence(str.indexOf('{'), str.indexOf('}')+1)
-		str.replace(str1, prm)
-	}                                        
+  }  
+    
+  def addParam(str: String, params: Map[String,String]): String = {
+    if(!params.tail.isEmpty){
+     addParam(paramReplace(str,params.head._1,params.head._2),params.tail)
+    }
+    else{ 
+	   paramReplace(str,params.head._1,params.head._2)
+    }
+  }                                       
+ 
+   def paramReplace (str:String, k: String, v: String): String ={
+     if(k!=name){
+		val str1 = str.subSequence(str.indexOf('{'+k), str.indexOf('}')+1)
+		str.replace(str1, v)
+   }
+     else{
+       str
+     }
+	}                                              
 	
 }

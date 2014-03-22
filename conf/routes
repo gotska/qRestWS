@@ -3,6 +3,10 @@
 # ~~~~
 
 # Home page
+
+GET     /get                              controllers.Application.get(get:String ?="")
+
+
 GET     /                                   controllers.Application.index
 GET     /jsonN/:name            		    controllers.Application.jsonN(name: String)
 GET     /jsonD/:name                		controllers.Application.jsonD(name: String)
