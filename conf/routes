@@ -4,9 +4,10 @@
 
 # Home page
 
-GET     /get                              controllers.Application.get(name:String ?="")
+GET     /get                                controllers.Application.get(name:String ?="")
+POST     /post                              controllers.Application.post
 GET     /                                   controllers.Application.index
-
+GET     /test                                   controllers.Application.test
 
 GET     /newQuery                           controllers.SqlQueryContr.newQuery
 POST    /querySave             				controllers.SqlQueryContr.save(id:String ?="")

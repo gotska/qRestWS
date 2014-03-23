@@ -1,0 +1,18 @@
+@main("Welcome to Play") {
+<script>
+$.post(
+"/post",
+{
+name: "cat",
+a: 1
+},
+onAjaxSuccess
+);
+
+function onAjaxSuccess(data)
+{
+// Здесь мы получаем данные, отправленные сервером и выводим их на экран.
+alert(data);
+}
+</script>
+}
