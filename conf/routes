@@ -4,12 +4,9 @@
 
 # Home page
 
-GET     /get                              controllers.Application.get(get:String ?="")
-
-
+GET     /get                              controllers.Application.get(name:String ?="")
 GET     /                                   controllers.Application.index
-GET     /jsonN/:name            		    controllers.Application.jsonN(name: String)
-GET     /jsonD/:name                		controllers.Application.jsonD(name: String)
+
 
 GET     /newQuery                           controllers.SqlQueryContr.newQuery
 POST    /querySave             				controllers.SqlQueryContr.save(id:String ?="")
