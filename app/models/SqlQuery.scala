@@ -23,11 +23,11 @@ object SqlQuery{
   
   // -- Queries
  
-  def findByName(name: String): String = {
+  def findByName(name: String): Option[String] = {
     DB.withConnection("h2") { implicit connection =>
       SQL("select query from sql_query where name = {name}").on(
         'name -> name
-      ).as(scalar[String].single)
+      ).as(scalar[String].singleOpt)
     }
   }
  
